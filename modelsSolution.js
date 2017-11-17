@@ -7,7 +7,7 @@ var db = new Sequelize('postgres://localhost:5432/restaurants', {
 
 /*Restaurant model. Include the following.....
 
-model: 
+model:
 -name
 -type of cuisine
 -rating(out of 5 stars)
@@ -19,14 +19,14 @@ methods(bonus):
 -findBest : returns all resturants with a rating greater or equal to 4
 -hook increasing the number of visits, then console.logs for ex... "Chipotle has been visited 10 times"
 
-*/ 
-var Restaurant = db.define("restaurant", {
+*/
+var Restaurant = db.define('restaurant', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
     },
     cuisine: {
-        type: Sequelize.ENUM('chinese', 'mexican', 'korean', 'indian', 'american'),
+        type: Sequelize.ENUM('Turkish', 'Japanese', 'American', 'Greek'),
         allowNull: false
     },
     rating: {
@@ -56,15 +56,13 @@ Restaurant.prototype.rate = function(num) { //Instance Method
 Restaurant.findBest = function() { //Class Method
     return this.findAll({
         where: {
-            rating: {
-                $gte: 4
-            }
+            rating: 5
         }
     })
 }
 
-Restaurant.hook("beforeValidate", function(restaurant){
-    restaurant.visits ++
+Restaurant.hook('beforeValidate', function(restaurant){
+    restaurant.visits++
     console.log(`${this.name} has been visited ${this.visits} times`)
 })
 
@@ -76,7 +74,7 @@ Restaurant.hook("beforeValidate", function(restaurant){
  */
 
 
-var MenuItem = db.define("menu_item", {
+var MenuItem = db.define('menu_item', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
@@ -92,6 +90,5 @@ var MenuItem = db.define("menu_item", {
 
 //relationships
 Restaurant.hasMany(MenuItem)
-
 
 module.exports = { db, Restaurant, MenuItem }
