@@ -1,1 +1,3 @@
-# express_mob_programming
+# Express-Sequelize Review
+
+http://docs.sequelizejs.com/
